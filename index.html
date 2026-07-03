@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GK Quiz by Rohit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="particles" id="particles"></div>
+
+  <div class="quiz-box">
+
+    <div class="header">
+      <div class="logo">🧠 GK Quiz by Rohit</div>
+      <div class="count" id="count">Question 1/25</div>
+    </div>
+
+    <div class="question-page" id="questionPage">
+      <div class="question" id="question"></div>
+
+      <div class="timer-box" id="timerBox">
+        <span id="timer"></span>
+      </div>
+
+      <div class="options">
+        <div class="option" id="optionA"></div>
+        <div class="option" id="optionB"></div>
+        <div class="option" id="optionC"></div>
+        <div class="option" id="optionD"></div>
+      </div>
+    </div>
+
+    <div class="answer-page" id="answerPage">
+      <div class="big-answer" id="answer"></div>
+
+      <div class="big-explanation">
+        <strong>📘 Explanation</strong>
+        <p id="explanation"></p>
+      </div>
+
+      <div class="big-fact">
+        <strong>💡 Interesting Fact</strong>
+        <p id="fact"></p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="show-btn" onclick="startCountdown()">Show Answer</button>
+      <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

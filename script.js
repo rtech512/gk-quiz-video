@@ -1,0 +1,125 @@
+let currentQuestion = 0;
+let countdownInterval = null;
+let timerRunning = false;
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+
+  document.getElementById("questionPage").style.display = "block";
+document.getElementById("answerPage").style.display = "none";
+  // Remove old correct answer highlight
+document.querySelectorAll(".option").forEach((option) => {
+  option.classList.remove("correct-answer");
+  option.classList.remove("wrong-fade");
+});
+
+  document.getElementById("count").innerText =
+    `Question ${currentQuestion + 1}/${questions.length}`;
+
+  document.getElementById("question").innerText =
+    `${currentQuestion + 1}. ${q.question}`;
+
+  document.getElementById("optionA").innerText = q.options[0];
+  document.getElementById("optionB").innerText = q.options[1];
+  document.getElementById("optionC").innerText = q.options[2];
+  document.getElementById("optionD").innerText = q.options[3];
+
+  document.getElementById("answer").innerText = q.answer;
+  document.getElementById("explanation").innerText = q.explanation;
+  document.getElementById("fact").innerText = q.fact;
+
+  document.getElementById("resultBox").style.display = "none";
+
+  clearInterval(countdownInterval);
+  timerRunning = false;
+
+  document.getElementById("timerBox").style.display = "none";
+  document.getElementById("timerBox").innerHTML = `<span id="timer"></span>`;
+}
+
+function showAnswer() {
+  const q = questions[currentQuestion];
+
+  // Question page hide
+  document.getElementById("questionPage").style.display = "none";
+
+  // Answer page show
+  document.getElementById("answerPage").style.display = "block";
+
+  // Answer data
+  document.getElementById("answer").innerText = q.answer;
+  document.getElementById("explanation").innerText = q.explanation;
+  document.getElementById("fact").innerText = q.fact;
+}
+
+function startCountdown() {
+  if (timerRunning) return;
+
+  timerRunning = true;
+  let timeLeft = 5;
+
+  const timerBox = document.getElementById("timerBox");
+  timerBox.style.display = "block";
+  timerBox.innerHTML = `<span id="timer">${timeLeft}</span>`;
+
+  countdownInterval = setInterval(() => {
+    timeLeft--;
+
+    document.getElementById("timer").innerText = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval);
+      timerRunning = false;
+
+      timerBox.style.display = "none";
+      showAnswer();
+    }
+  }, 1000);
+}
+
+function nextQuestion() {
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    loadQuestion();
+  } else {
+    alert("🎉 सभी Questions Complete!");
+  }
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.code === "Space") {
+    event.preventDefault();
+    startCountdown();
+  }
+
+  if (event.code === "ArrowRight") {
+    nextQuestion();
+  }
+});
+
+loadQuestion();
+createParticles();
+
+function createParticles() {
+  const particleContainer = document.getElementById("particles");
+
+  if (!particleContainer) return;
+
+  particleContainer.innerHTML = "";
+
+  for (let i = 0; i < 45; i++) {
+    const particle = document.createElement("span");
+    particle.classList.add("particle");
+
+    particle.style.left = Math.random() * 100 + "%";
+
+    const size = Math.random() * 4 + 2;
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    particle.style.animationDuration = Math.random() * 12 + 8 + "s";
+    particle.style.animationDelay = Math.random() * -20 + "s";
+
+    particleContainer.appendChild(particle);
+  }
+}
