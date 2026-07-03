@@ -403,3 +403,77 @@ body {
   display: flex;
   align-items: center;
 }
+/* =========================
+   MOBILE SCREEN FIT
+========================= */
+
+@media (max-width: 600px) {
+  body {
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .quiz-box {
+    width: 100vw;
+    height: 100vh;
+    padding: 16px 14px;
+  }
+
+  .header {
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .count {
+    font-size: 15px;
+  }
+
+  .question-page {
+    min-height: calc(100vh - 120px);
+  }
+
+  .question-page .question {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+
+  .question-page .options {
+    gap: 10px;
+  }
+
+  .question-page .option {
+    font-size: 19px;
+    min-height: 58px;
+    padding: 12px 14px;
+  }
+
+  .controls {
+    margin-top: 10px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 11px 12px;
+  }
+
+  .big-answer {
+    font-size: 22px;
+    padding: 15px;
+  }
+
+  .big-explanation,
+  .big-fact {
+    font-size: 18px;
+    padding: 16px;
+    min-height: auto;
+  }
+
+  .big-explanation strong,
+  .big-fact strong {
+    font-size: 21px;
+  }
+}

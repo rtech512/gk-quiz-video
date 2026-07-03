@@ -7,6 +7,7 @@ function loadQuestion() {
 
   document.getElementById("questionPage").style.display = "block";
 document.getElementById("answerPage").style.display = "none";
+
   // Remove old correct answer highlight
 document.querySelectorAll(".option").forEach((option) => {
   option.classList.remove("correct-answer");
