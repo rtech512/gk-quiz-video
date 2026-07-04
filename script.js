@@ -1,18 +1,31 @@
 let currentQuestion = 0;
 let countdownInterval = null;
 let timerRunning = false;
+let quizStarted = false;
+let justStarted = false;
+
+function startQuiz() {
+  document.getElementById("welcomePage").style.display = "none";
+  document.getElementById("quizBox").style.display = "block";
+
+  quizStarted = true;
+  justStarted = true;
+
+  setTimeout(() => {
+    justStarted = false;
+  }, 500);
+}
 
 function loadQuestion() {
   const q = questions[currentQuestion];
 
   document.getElementById("questionPage").style.display = "block";
-document.getElementById("answerPage").style.display = "none";
+  document.getElementById("answerPage").style.display = "none";
 
-  // Remove old correct answer highlight
-document.querySelectorAll(".option").forEach((option) => {
-  option.classList.remove("correct-answer");
-  option.classList.remove("wrong-fade");
-});
+  document.querySelectorAll(".option").forEach((option) => {
+    option.classList.remove("correct-answer");
+    option.classList.remove("wrong-fade");
+  });
 
   document.getElementById("count").innerText =
     `Question ${currentQuestion + 1}/${questions.length}`;
@@ -29,8 +42,6 @@ document.querySelectorAll(".option").forEach((option) => {
   document.getElementById("explanation").innerText = q.explanation;
   document.getElementById("fact").innerText = q.fact;
 
-  document.getElementById("resultBox").style.display = "none";
-
   clearInterval(countdownInterval);
   timerRunning = false;
 
@@ -41,19 +52,17 @@ document.querySelectorAll(".option").forEach((option) => {
 function showAnswer() {
   const q = questions[currentQuestion];
 
-  // Question page hide
   document.getElementById("questionPage").style.display = "none";
-
-  // Answer page show
   document.getElementById("answerPage").style.display = "block";
 
-  // Answer data
   document.getElementById("answer").innerText = q.answer;
   document.getElementById("explanation").innerText = q.explanation;
   document.getElementById("fact").innerText = q.fact;
 }
 
 function startCountdown() {
+  if (!quizStarted) return;
+  if (justStarted) return;
   if (timerRunning) return;
 
   timerRunning = true;
@@ -65,13 +74,11 @@ function startCountdown() {
 
   countdownInterval = setInterval(() => {
     timeLeft--;
-
     document.getElementById("timer").innerText = timeLeft;
 
     if (timeLeft <= 0) {
       clearInterval(countdownInterval);
       timerRunning = false;
-
       timerBox.style.display = "none";
       showAnswer();
     }
@@ -79,6 +86,8 @@ function startCountdown() {
 }
 
 function nextQuestion() {
+  if (!quizStarted) return;
+
   if (currentQuestion < questions.length - 1) {
     currentQuestion++;
     loadQuestion();
@@ -90,10 +99,16 @@ function nextQuestion() {
 document.addEventListener("keydown", function (event) {
   if (event.code === "Space") {
     event.preventDefault();
+
+    if (!quizStarted) {
+      startQuiz();
+      return;
+    }
+
     startCountdown();
   }
 
-  if (event.code === "ArrowRight") {
+  if (event.code === "ArrowRight" && quizStarted) {
     nextQuestion();
   }
 });
@@ -103,7 +118,6 @@ createParticles();
 
 function createParticles() {
   const particleContainer = document.getElementById("particles");
-
   if (!particleContainer) return;
 
   particleContainer.innerHTML = "";

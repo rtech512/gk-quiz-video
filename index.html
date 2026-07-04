@@ -12,7 +12,19 @@
 
   <div class="particles" id="particles"></div>
 
-  <div class="quiz-box">
+  <div class="welcome-page" id="welcomePage">
+    <div class="welcome-card">
+      <div class="welcome-logo">🧠</div>
+      <div class="welcome-badge">25 Interesting Questions</div>
+      <h1>GK QUIZ</h1>
+      <h2>By Rohit</h2>
+      <p>Daily Life • Science • Tech • Smart GK</p>
+      <div class="space-hint">Press SPACE to Start</div>
+      <button onclick="startQuiz()" class="start-btn">Start Quiz ▶</button>
+    </div>
+  </div>
+
+  <div class="quiz-box" id="quizBox" style="display:none;">
 
     <div class="header">
       <div class="logo">🧠 GK Quiz by Rohit</div>
@@ -57,12 +69,14 @@
 
   <script src="questions.js"></script>
   <script src="script.js"></script>
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./sw.js");
-    });
-  }
-</script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+      });
+    }
+  </script>
+
 </body>
 </html>
